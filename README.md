@@ -19,7 +19,7 @@
 
 ## ③DEMO
 - **ローカル環境**: http://localhost/gs_kadai/kadai07_db1/
-- **本番環境**: （さくらサーバーデプロイ後のURLを記載予定）
+- **本番環境**: https://gs-takahashi244.sakura.ne.jp/kadai07_db1/
 
 ## ④工夫した点・こだわった点
 
