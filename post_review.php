@@ -247,5 +247,35 @@
             <p>&copy; 2025 高校生・大学生マッチングアプリ</p>
         </div>
     </footer>
+
+    <script>
+        // 評価ボタンの選択状態を視覚化
+        document.addEventListener('DOMContentLoaded', function() {
+            const ratingOptions = document.querySelectorAll('.rating-option');
+            
+            ratingOptions.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                
+                // 初期状態で選択されているものにselectedクラスを追加
+                if (radio.checked) {
+                    option.classList.add('selected');
+                }
+                
+                // ラジオボタンの変更時の処理
+                radio.addEventListener('change', function() {
+                    // 同じname属性のラジオボタンからselectedクラスを削除
+                    const sameNameRadios = document.querySelectorAll(`input[name="${this.name}"]`);
+                    sameNameRadios.forEach(r => {
+                        r.closest('.rating-option').classList.remove('selected');
+                    });
+                    
+                    // 選択されたボタンにselectedクラスを追加
+                    if (this.checked) {
+                        this.closest('.rating-option').classList.add('selected');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

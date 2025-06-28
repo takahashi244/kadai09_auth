@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>高校生・大学生マッチング - レビュー一覧</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?= time() ?>">
 </head>
 <body>
     <header>
@@ -90,6 +90,7 @@
         <!-- レビュー投稿ボタン -->
         <section class="action-section">
             <a href="post_review.php" class="btn-post">新しいレビューを投稿</a>
+            <a href="view_reviews_table.php" class="btn-table">データ一覧を確認</a>
         </section>
 
         <!-- レビュー一覧 -->
@@ -171,10 +172,22 @@
                         echo '</div>';
                         
                         echo '<div class="rating-details">';
-                        echo "<div class=\"rating-item\"><span>話しやすさ:</span> {$review['friendliness']}/5</div>";
-                        echo "<div class=\"rating-item\"><span>参考になった度:</span> {$review['helpfulness']}/5</div>";
-                        echo "<div class=\"rating-item\"><span>ワクワク度:</span> {$review['excitement']}/5</div>";
-                        echo "<div class=\"rating-item\"><span>時間の正確性:</span> {$review['punctuality']}/5</div>";
+                        echo '<div class="rating-item">';
+                        echo '<span class="rating-label">話しやすさ</span>';
+                        echo '<span class="rating-value">' . $review['friendliness'] . '/5</span>';
+                        echo '</div>';
+                        echo '<div class="rating-item">';
+                        echo '<span class="rating-label">参考になった度</span>';
+                        echo '<span class="rating-value">' . $review['helpfulness'] . '/5</span>';
+                        echo '</div>';
+                        echo '<div class="rating-item">';
+                        echo '<span class="rating-label">ワクワク度</span>';
+                        echo '<span class="rating-value">' . $review['excitement'] . '/5</span>';
+                        echo '</div>';
+                        echo '<div class="rating-item">';
+                        echo '<span class="rating-label">時間の正確性</span>';
+                        echo '<span class="rating-value">' . $review['punctuality'] . '/5</span>';
+                        echo '</div>';
                         echo '</div>';
                         echo '</div>';
                         
