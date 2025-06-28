@@ -20,7 +20,7 @@
 - サーバー: Apache（XAMPP環境）
 
 ## ③アプリのデプロイURL
-http://localhost/gs_kadai/kadai06_basic_php/
+http://localhost/gs_kadai/kadai07_db1/
 （XAMPP環境での動作確認用）
 
 ## ④アプリのログイン用IDまたはPassword（ある場合）
