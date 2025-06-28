@@ -10,10 +10,10 @@ function sakura_db_info(){
     // https://qiita.com/shuntaro_tamura/items/784cfd61f355516dfff0
     
     $associative_array = array(
-        "db_name" => "gs-takahashi244_kadai07_db1",               // データベース名（例：example_db）
-        "db_host" => "mysql3108.db.sakura.ne.jp",          // DBホスト（さくらから提供される）
-        "db_id"   => "gs-takahashi244.sakura.ne.jp",                       // アカウント名（ドメイン名）
-        "db_pw"   => "244Shoko"            // パスワード（さくらのDBパスワード）
+        "db_name" => "your_sakura_db_name",               // データベース名（例：example_db）
+        "db_host" => "mysql999.db.sakura.ne.jp",          // DBホスト（さくらから提供される）
+        "db_id"   => "your_domain",                       // アカウント名（ドメイン名）
+        "db_pw"   => "your_sakura_db_password"            // パスワード（さくらのDBパスワード）
     );
 
     return $associative_array;
