@@ -193,12 +193,12 @@ INSERT INTO reviews (student_id, reviewer_nickname, reviewer_school, reviewer_gr
 
 1. **アプリケーションの動作確認**
    ```
-   http://localhost/gs_kadai/kadai07_db1/index.php
+   http://localhost/gs_kadai/kadai08_db2/index.php
    ```
 
 2. **データベース接続テスト**
    ```
-   http://localhost/gs_kadai/kadai07_db1/db_test.php
+   http://localhost/gs_kadai/kadai08_db2/db_test.php
    ```
 
 3. **各機能のテスト**

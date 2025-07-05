@@ -20,8 +20,8 @@
 - **環境**: XAMPP（ローカル）、さくらサーバー（本番）
 
 ## ③DEMO
-- **ローカル環境**: http://localhost/gs_kadai/kadai07_db1/
-- **本番環境**: https://gs-takahashi244.sakura.ne.jp/kadai07_db1/
+- **ローカル環境**: http://localhost/gs_kadai/kadai08_db2/
+- **本番環境**: https://gs-takahashi244.sakura.ne.jp/kadai08_db2/
 
 ## ④工夫した点・こだわった点
 
@@ -79,7 +79,7 @@
 ## 📁 ファイル構成
 
 ```
-kadai07_db1/
+kadai08_db2/
 ├── index.php                    # メインページ（レビュー表示・検索）
 ├── post_review.php             # レビュー投稿ページ
 ├── edit_review.php             # レビュー編集ページ（NEW）
@@ -105,11 +105,11 @@ kadai07_db1/
 
 ### ローカル環境（XAMPP）
 1. XAMPPをインストール・起動
-2. プロジェクトを`htdocs/gs_kadai/kadai07_db1/`に配置
+2. プロジェクトを`htdocs/gs_kadai/kadai08_db2/`に配置
 3. MySQLでデータベースを作成: `CREATE DATABASE university_matching;`
 4. `database/create_database.sql`を実行してテーブル作成
 5. `database/insert_dummy_data.sql`を実行してサンプルデータ投入
-6. http://localhost/gs_kadai/kadai07_db1/ にアクセス
+6. http://localhost/gs_kadai/kadai08_db2/ にアクセス
 
 ### 本番環境（さくらサーバー）
 1. ファイルをサーバーにアップロード
