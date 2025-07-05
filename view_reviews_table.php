@@ -95,6 +95,31 @@
             font-style: italic;
             color: #666;
         }
+        .action-buttons {
+            text-align: center;
+            white-space: nowrap;
+        }
+        .btn-edit-small, .btn-delete-small {
+            display: inline-block;
+            padding: 4px 8px;
+            margin: 2px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 12px;
+            color: white;
+        }
+        .btn-edit-small {
+            background-color: #007bff;
+        }
+        .btn-edit-small:hover {
+            background-color: #0056b3;
+        }
+        .btn-delete-small {
+            background-color: #dc3545;
+        }
+        .btn-delete-small:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -158,6 +183,7 @@
                 echo '<th>コメント</th>';
                 echo '<th>レビュー日</th>';
                 echo '<th>投稿日時</th>';
+                echo '<th>操作</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
@@ -215,6 +241,13 @@
                     // 日付
                     echo "<td>" . date('Y/m/d', strtotime($review['review_date'])) . "</td>";
                     echo "<td>" . date('Y/m/d H:i', strtotime($review['created_at'])) . "</td>";
+                    
+                    // 操作ボタン
+                    echo '<td class="action-buttons">';
+                    echo "<a href=\"edit_review.php?id={$review['id']}\" class=\"btn-edit-small\">編集</a>";
+                    echo "<a href=\"#\" onclick=\"confirmDelete({$review['id']})\" class=\"btn-delete-small\">削除</a>";
+                    echo '</td>';
+                    
                     echo '</tr>';
                 }
                 
@@ -262,5 +295,14 @@
         }
         ?>
     </div>
+
+    <script>
+        // 削除確認ダイアログ
+        function confirmDelete(reviewId) {
+            if (confirm('このレビューを削除してもよろしいですか？\n\n削除したレビューは復元できません。')) {
+                location.href = 'delete_review.php?id=' + reviewId;
+            }
+        }
+    </script>
 </body>
 </html>

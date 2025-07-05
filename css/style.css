@@ -496,13 +496,143 @@ section h2 {
     padding: 1rem;
 }
 
-/* フッター */
-footer {
-    background: #343a40;
+/* 編集・削除ボタン */
+.review-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+.btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-left: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #007bff;
     color: white;
-    text-align: center;
-    padding: 1rem 0;
-    margin-top: 3rem;
+    border: 1px solid #007bff;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* アラートボックス */
+.alert {
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert strong {
+    font-weight: 600;
+}
+
+/* 編集フォーム専用スタイル */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.student-display {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.student-info-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.student-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.student-info-display .university,
+.student-info-display .department,
+.student-info-display .grade {
+    background-color: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.form-text {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.875em;
+    color: #6c757d;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.btn-cancel {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #545b62;
+    color: white;
 }
 
 /* レスポンシブ対応 */

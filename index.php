@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,6 +18,21 @@
     </header>
 
     <main class="container">
+        <?php
+        // セッションメッセージの表示
+        if (isset($_SESSION['success'])) {
+            echo '<div class="alert alert-success">';
+            echo '<strong>成功:</strong> ' . htmlspecialchars($_SESSION['success']);
+            echo '</div>';
+            unset($_SESSION['success']);
+        }
+        if (isset($_SESSION['error'])) {
+            echo '<div class="alert alert-danger">';
+            echo '<strong>エラー:</strong> ' . htmlspecialchars($_SESSION['error']);
+            echo '</div>';
+            unset($_SESSION['error']);
+        }
+        ?>
         <!-- 検索・絞り込みフォーム -->
         <section class="search-section">
             <h2>レビューを検索・絞り込み</h2>
@@ -210,6 +228,13 @@
                         echo "</div>";
                         echo "<div class=\"review-date\">{$reviewDate}</div>";
                         echo '</div>';
+                        
+                        // 編集・削除ボタンを追加
+                        echo '<div class="review-actions">';
+                        echo "<a href=\"edit_review.php?id={$review['id']}\" class=\"btn-edit\">編集</a>";
+                        echo "<a href=\"#\" onclick=\"confirmDelete({$review['id']})\" class=\"btn-delete\">削除</a>";
+                        echo '</div>';
+                        
                         echo '</div>';
                     }
                 }
@@ -226,5 +251,14 @@
             <p>&copy; 2025 高校生・大学生マッチングアプリ</p>
         </div>
     </footer>
+
+    <script>
+        // 削除確認ダイアログ
+        function confirmDelete(reviewId) {
+            if (confirm('このレビューを削除してもよろしいですか？\n\n削除したレビューは復元できません。')) {
+                location.href = 'delete_review.php?id=' + reviewId;
+            }
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編集・削除機能テスト</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        .btn { padding: 10px 20px; margin: 5px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <h1>レビュー編集・削除機能テスト</h1>
+    
+    <div class="test-section">
+        <h2>✅ 実装完了機能</h2>
+        <ul>
+            <li class="success">✓ edit_review.php - 編集フォーム</li>
+            <li class="success">✓ update_review.php - 更新処理</li>
+            <li class="success">✓ delete_review.php - 削除処理</li>
+            <li class="success">✓ index.php - 編集・削除ボタン追加</li>
+            <li class="success">✓ view_reviews_table.php - 操作ボタン追加</li>
+            <li class="success">✓ CSS - 新機能用スタイル追加</li>
+            <li class="success">✓ セッションメッセージ表示</li>
+        </ul>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔐 セキュリティ仕様</h2>
+        <div class="info">
+            <p><strong>対象大学生の編集不可:</strong></p>
+            <ul>
+                <li>レビューの対象大学生は編集できません</li>
+                <li>データの整合性を保護するための仕様です</li>
+                <li>変更したい場合は「削除→新規作成」の手順を案内</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🧪 テスト手順</h2>
+        <ol>
+            <li><strong>編集テスト:</strong>
+                <ul>
+                    <li>レビュー一覧で「編集」ボタンをクリック</li>
+                    <li>対象大学生が編集不可になっていることを確認</li>
+                    <li>他の項目を編集して更新</li>
+                    <li>成功メッセージが表示されることを確認</li>
+                </ul>
+            </li>
+            <li><strong>削除テスト:</strong>
+                <ul>
+                    <li>レビュー一覧で「削除」ボタンをクリック</li>
+                    <li>確認ダイアログが表示されることを確認</li>
+                    <li>削除を実行</li>
+                    <li>成功メッセージが表示されることを確認</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔗 テスト用リンク</h2>
+        <a href="index.php" class="btn btn-primary">メインページへ</a>
+        <a href="view_reviews_table.php" class="btn btn-success">データテーブルへ</a>
+        <a href="post_review.php" class="btn btn-danger">レビュー投稿へ</a>
+    </div>
+    
+    <div class="test-section">
+        <h2>📋 バリデーション項目</h2>
+        <ul>
+            <li>レビューIDの存在確認</li>
+            <li>学生IDの存在確認</li>
+            <li>評価値の範囲チェック（1-5）</li>
+            <li>学年の範囲チェック（1-3）</li>
+            <li>日付の妥当性チェック</li>
+            <li>未来日付の防止</li>
+            <li>必須フィールドの入力チェック</li>
+        </ul>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎯 動作確認チェックリスト</h2>
+        <p>以下を確認して、すべて正常に動作することを確認してください：</p>
+        <ul>
+            <li>□ 各レビューカードに「編集」「削除」ボタンが表示される</li>
+            <li>□ 編集ページで対象大学生が編集不可になっている</li>
+            <li>□ 編集ページで案内メッセージが表示される</li>
+            <li>□ 編集フォームの各項目が正しく入力される</li>
+            <li>□ 更新処理が正常に実行される</li>
+            <li>□ 削除時に確認ダイアログが表示される</li>
+            <li>□ 削除処理が正常に実行される</li>
+            <li>□ 成功・エラーメッセージが正しく表示される</li>
+        </ul>
+    </div>
+    
+    <p style="text-align: center; margin-top: 30px;">
+        <small>作成日: 2025年7月5日 | 高校生・大学生マッチングアプリ</small>
+    </p>
+</body>
+</html>

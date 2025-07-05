@@ -33,6 +33,7 @@ CREATE TABLE reviews (
     comment TEXT DEFAULT NULL COMMENT 'コメント',
     review_date DATE NOT NULL COMMENT 'レビュー日',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '投稿日時',
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
     INDEX idx_student_id (student_id),
     INDEX idx_review_date (review_date),
