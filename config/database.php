@@ -51,10 +51,13 @@ function getDBConnection()
     }
 
     try {
-        $dsn = 'mysql:dbname=' . $db_name . ';charset=utf8;host=' . $db_host;
+        $dsn = 'mysql:dbname=' . $db_name . ';charset=utf8mb4;host=' . $db_host;
         $pdo = new PDO($dsn, $db_user, $db_pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        
+        // 文字エンコーディングを明示的に設定
+        $pdo->exec("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
         
         return $pdo;
     } catch (PDOException $e) {

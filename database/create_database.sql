@@ -7,6 +7,21 @@ CREATE DATABASE IF NOT EXISTS student_review_app CHARACTER SET utf8mb4 COLLATE u
 -- データベースを使用
 USE student_review_app;
 
+-- ユーザーテーブルの作成
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ユーザーID',
+    name VARCHAR(64) NOT NULL COMMENT 'ユーザー名',
+    lid VARCHAR(128) NOT NULL UNIQUE COMMENT 'ログインID',
+    lpw VARCHAR(255) NOT NULL COMMENT 'ログインパスワード（ハッシュ化）',
+    kanri_flg INT NOT NULL DEFAULT 0 COMMENT '管理者フラグ（0:一般, 1:管理者）',
+    life_flg INT NOT NULL DEFAULT 0 COMMENT 'アクティブフラグ（0:アクティブ, 1:非アクティブ）',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+    INDEX idx_lid (lid),
+    CHECK (kanri_flg IN (0, 1)),
+    CHECK (life_flg IN (0, 1))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='ユーザーテーブル';
+
 -- 大学生テーブルの作成
 CREATE TABLE students (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT '大学生ID',

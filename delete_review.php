@@ -1,32 +1,43 @@
 <?php
+session_start();
+header('Content-Type: text/html; charset=UTF-8');
+require_once 'config/database.php';
+require_once 'includes/auth_functions.php';
+
+// ログインチェック
+requireLogin();
+
 // GETでレビューIDを受け取る
 $id = $_GET["id"] ?? null;
 
 // バリデーション
 if (empty($id) || !is_numeric($id)) {
-    echo "<script>
-        alert('不正なアクセスです。');
-        location.href = 'index.php';
-    </script>";
+    $_SESSION['error'] = '無効なレビューIDです。';
+    header('Location: my_reviews.php');
     exit;
 }
 
 // データベース接続
-require_once 'config/database.php';
 $pdo = getDBConnection();
 
 try {
-    // レビューの存在確認
-    $check_sql = "SELECT COUNT(*) FROM reviews WHERE id = :id";
+    // レビューの存在確認と権限チェック
+    $check_sql = "SELECT user_id FROM reviews WHERE id = :id";
     $check_stmt = $pdo->prepare($check_sql);
     $check_stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $check_stmt->execute();
+    $review_data = $check_stmt->fetch();
     
-    if ($check_stmt->fetchColumn() == 0) {
-        echo "<script>
-            alert('指定されたレビューが見つかりません。');
-            location.href = 'index.php';
-        </script>";
+    if (!$review_data) {
+        $_SESSION['error'] = '指定されたレビューが見つかりません。';
+        header('Location: my_reviews.php');
+        exit;
+    }
+    
+    // 削除権限チェック
+    if (!canEditReview($id, $_SESSION['user_id'], $review_data['user_id'])) {
+        $_SESSION['error'] = 'このレビューを削除する権限がありません。';
+        header('Location: my_reviews.php');
         exit;
     }
 
@@ -40,22 +51,16 @@ try {
     if ($status == false) {
         $error = $delete_stmt->errorInfo();
         error_log("レビュー削除エラー: " . $error[2]);
-        echo "<script>
-            alert('レビューの削除中にエラーが発生しました。');
-            location.href = 'index.php';
-        </script>";
+        $_SESSION['error'] = 'レビューの削除中にエラーが発生しました。';
+        header('Location: my_reviews.php');
     } else {
-        echo "<script>
-            alert('レビューを削除しました。');
-            location.href = 'index.php';
-        </script>";
+        $_SESSION['success'] = 'レビューを削除しました。';
+        header('Location: my_reviews.php');
     }
 
 } catch (Exception $e) {
     error_log("レビュー削除エラー: " . $e->getMessage());
-    echo "<script>
-        alert('レビューの削除中にエラーが発生しました。');
-        location.href = 'index.php';
-    </script>";
+    $_SESSION['error'] = 'レビューの削除中にエラーが発生しました。';
+    header('Location: my_reviews.php');
 }
 ?>

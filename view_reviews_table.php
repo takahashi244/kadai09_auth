@@ -1,3 +1,18 @@
+<?php
+session_start();
+header('Content-Type: text/html; charset=UTF-8');
+require_once 'includes/auth_functions.php';
+
+// ログインチェック
+requireLogin();
+
+// 管理者権限チェック
+if (!isAdmin()) {
+    $_SESSION['error'] = 'この機能は管理者のみ利用可能です。';
+    header('Location: index.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>

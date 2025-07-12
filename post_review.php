@@ -1,10 +1,18 @@
+<?php
+session_start();
+header('Content-Type: text/html; charset=UTF-8');
+require_once 'includes/auth_functions.php';
+
+// ログインチェック
+requireLogin();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>レビュー投稿 - 高校生・大学生マッチング</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?= time() ?>">
 </head>
 <body>
     <header>
@@ -55,8 +63,8 @@
                     $sql = "INSERT INTO reviews (
                         student_id, reviewer_nickname, reviewer_school, reviewer_grade,
                         friendliness, helpfulness, excitement, punctuality,
-                        comment, review_date
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        comment, review_date, user_id
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     
                     $stmt = $pdo->prepare($sql);
                     $result = $stmt->execute([
@@ -69,7 +77,8 @@
                         $_POST['excitement'],
                         $_POST['punctuality'],
                         !empty($_POST['comment']) ? $_POST['comment'] : null,
-                        $_POST['review_date']
+                        $_POST['review_date'],
+                        $_SESSION['user_id']
                     ]);
                     
                     if ($result) {

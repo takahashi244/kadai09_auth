@@ -1,5 +1,7 @@
 <?php
 session_start();
+header('Content-Type: text/html; charset=UTF-8');
+require_once 'includes/auth_functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -14,6 +16,23 @@ session_start();
         <div class="container">
             <h1>高校生・大学生マッチング</h1>
             <p class="subtitle">WEB面談レビューシステム</p>
+            <div class="header-auth">
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <div class="user-info">
+                        ようこそ、<?= htmlspecialchars($_SESSION['user_name']) ?>さん
+                        <?php if ($_SESSION['kanri_flg'] == 1): ?>
+                            <span class="admin-badge">管理者</span>
+                            <a href="user_list.php" class="btn-admin">ユーザー管理</a>
+                        <?php endif; ?>
+                        <a href="logout.php" class="btn-logout">ログアウト</a>
+                    </div>
+                <?php else: ?>
+                    <div class="auth-links">
+                        <a href="login.php" class="btn-login">ログイン</a>
+                        <a href="register.php" class="btn-register">ユーザー登録</a>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
     </header>
 
@@ -105,10 +124,17 @@ session_start();
             </form>
         </section>
 
-        <!-- レビュー投稿ボタン -->
+        <!-- アクションボタン -->
         <section class="action-section">
-            <a href="post_review.php" class="btn-post">新しいレビューを投稿</a>
-            <a href="view_reviews_table.php" class="btn-table">データ一覧を確認</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="post_review.php" class="btn-post">新しいレビューを投稿</a>
+                <a href="my_reviews.php" class="btn-my-reviews">マイレビュー管理</a>
+                <?php if ($_SESSION['kanri_flg'] == 1): ?>
+                    <a href="view_reviews_table.php" class="btn-table">全データ一覧確認</a>
+                <?php endif; ?>
+            <?php else: ?>
+                <p class="login-prompt">レビューを投稿するには<a href="login.php">ログイン</a>してください</p>
+            <?php endif; ?>
         </section>
 
         <!-- レビュー一覧 -->
@@ -229,11 +255,16 @@ session_start();
                         echo "<div class=\"review-date\">{$reviewDate}</div>";
                         echo '</div>';
                         
-                        // 編集・削除ボタンを追加
-                        echo '<div class="review-actions">';
-                        echo "<a href=\"edit_review.php?id={$review['id']}\" class=\"btn-edit\">編集</a>";
-                        echo "<a href=\"#\" onclick=\"confirmDelete({$review['id']})\" class=\"btn-delete\">削除</a>";
-                        echo '</div>';
+                        // 編集・削除ボタンを追加（権限チェック付き）
+                        if (isset($_SESSION['user_id'])) {
+                            // ログイン済みの場合のみ編集・削除ボタンを表示
+                            if (canEditReview($review['id'], $_SESSION['user_id'], $review['user_id'])) {
+                                echo '<div class="review-actions">';
+                                echo "<a href=\"edit_review.php?id={$review['id']}\" class=\"btn-edit\">編集</a>";
+                                echo "<a href=\"#\" onclick=\"confirmDelete({$review['id']})\" class=\"btn-delete\">削除</a>";
+                                echo '</div>';
+                            }
+                        }
                         
                         echo '</div>';
                     }

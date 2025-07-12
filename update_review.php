@@ -1,6 +1,14 @@
 <?php
+session_start();
+header('Content-Type: text/html; charset=UTF-8');
+require_once 'config/database.php';
+require_once 'includes/auth_functions.php';
+
+// ログインチェック
+requireLogin();
+
 // POSTデータ取得
-$id = $_POST["id"];
+$id = $_POST["id"] ?? null;
 $student_id = $_POST["student_id"];
 $reviewer_nickname = $_POST["reviewer_nickname"] ?? null;
 $reviewer_school = $_POST["reviewer_school"];
@@ -41,6 +49,32 @@ foreach ($ratings as $rating) {
     }
 }
 
+// 編集権限チェック - レビューの存在確認も兼ねる
+try {
+    $pdo = getDBConnection();
+    $check_sql = "SELECT user_id FROM reviews WHERE id = :id";
+    $check_stmt = $pdo->prepare($check_sql);
+    $check_stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $check_stmt->execute();
+    $review_data = $check_stmt->fetch();
+    
+    if (!$review_data) {
+        $_SESSION['error'] = '指定されたレビューが見つかりません。';
+        header('Location: my_reviews.php');
+        exit;
+    }
+    
+    if (!canEditReview($id, $_SESSION['user_id'], $review_data['user_id'])) {
+        $_SESSION['error'] = 'このレビューを編集する権限がありません。';
+        header('Location: my_reviews.php');
+        exit;
+    }
+} catch (Exception $e) {
+    $_SESSION['error'] = 'レビューの確認中にエラーが発生しました。';
+    header('Location: my_reviews.php');
+    exit;
+}
+
 // 文字数制限チェック
 if (strlen($reviewer_nickname) > 50) {
     $errors[] = 'ニックネームは50文字以内で入力してください。';
@@ -59,21 +93,7 @@ if (!empty($errors)) {
     exit;
 }
 
-// データベース接続
-require_once 'config/database.php';
-$pdo = getDBConnection();
-
 try {
-    // レビューの存在確認
-    $check_sql = "SELECT COUNT(*) FROM reviews WHERE id = :id";
-    $check_stmt = $pdo->prepare($check_sql);
-    $check_stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    $check_stmt->execute();
-    
-    if ($check_stmt->fetchColumn() == 0) {
-        die('指定されたレビューが見つかりません。');
-    }
-
     // データ更新SQL作成
     $sql = "UPDATE reviews SET 
                 student_id = :student_id,
@@ -107,22 +127,16 @@ try {
     if ($status == false) {
         $error = $stmt->errorInfo();
         error_log("レビュー更新エラー: " . $error[2]);
-        echo "<script>
-            alert('レビューの更新中にエラーが発生しました。');
-            history.back();
-        </script>";
+        $_SESSION['error'] = 'レビューの更新中にエラーが発生しました。';
+        header('Location: my_reviews.php');
     } else {
-        echo "<script>
-            alert('レビューを更新しました！');
-            location.href = 'index.php';
-        </script>";
+        $_SESSION['success'] = 'レビューを更新しました！';
+        header('Location: my_reviews.php');
     }
 
 } catch (Exception $e) {
     error_log("レビュー更新エラー: " . $e->getMessage());
-    echo "<script>
-        alert('レビューの更新中にエラーが発生しました。');
-        history.back();
-    </script>";
+    $_SESSION['error'] = 'レビューの更新中にエラーが発生しました。';
+    header('Location: my_reviews.php');
 }
 ?>

@@ -1,8 +1,22 @@
 <?php
-$id = $_GET["id"]; // GETでレビューIDを受け取る
+session_start();
+header('Content-Type: text/html; charset=UTF-8');
+require_once 'config/database.php';
+require_once 'includes/auth_functions.php';
+
+// ログインチェック
+requireLogin();
+
+$id = $_GET["id"] ?? null; // GETでレビューIDを受け取る
+
+// バリデーション
+if (empty($id) || !is_numeric($id)) {
+    $_SESSION['error'] = '無効なレビューIDです。';
+    header('Location: my_reviews.php');
+    exit;
+}
 
 // データベース接続
-require_once 'config/database.php';
 $pdo = getDBConnection();
 
 // レビューデータの取得
@@ -29,8 +43,13 @@ if ($status == false) {
 // データ取得
 $review = $stmt->fetch();
 if (!$review) {
-    die('指定されたレビューが見つかりません。');
+    $_SESSION['error'] = '指定されたレビューが見つかりません。';
+    header('Location: my_reviews.php');
+    exit;
 }
+
+// 編集権限チェック
+requireReviewEditPermission($review['id'], $review['user_id']);
 
 $gradeText = $review['grade'] == 5 ? '院生' : $review['grade'] . '年';
 ?>

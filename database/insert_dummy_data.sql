@@ -52,3 +52,19 @@ INSERT INTO reviews (student_id, reviewer_nickname, reviewer_school, reviewer_gr
 
 -- 山本あいりさんへのレビュー
 (10, 'ゆい', '東京女学館', 3, 5, 5, 4, 4, '薬学部の6年制について詳しく聞けました。国家試験の話や就職先についても教えてもらえて、とても参考になりました。', '2025-06-01');
+
+-- ユーザーダミーデータの投入
+INSERT INTO users (name, lid, lpw, kanri_flg, life_flg) VALUES
+-- 管理者ユーザー
+('管理者', 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, 0),
+-- パスワード: password
+
+-- 一般ユーザー
+('田中花子', 'tanaka', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 0),
+-- パスワード: password
+
+('佐藤太郎', 'sato', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 0),
+-- パスワード: password
+
+('山田美咲', 'yamada', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 0, 0);
+-- パスワード: password
