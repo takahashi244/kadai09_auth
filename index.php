@@ -258,7 +258,9 @@ require_once 'includes/auth_functions.php';
                         // 編集・削除ボタンを追加（権限チェック付き）
                         if (isset($_SESSION['user_id'])) {
                             // ログイン済みの場合のみ編集・削除ボタンを表示
-                            if (canEditReview($review['id'], $_SESSION['user_id'], $review['user_id'])) {
+                            // user_idが存在する場合のみ権限チェックを行う
+                            $review_user_id = isset($review['user_id']) ? $review['user_id'] : null;
+                            if (canEditReview($review['id'], $_SESSION['user_id'], $review_user_id)) {
                                 echo '<div class="review-actions">';
                                 echo "<a href=\"edit_review.php?id={$review['id']}\" class=\"btn-edit\">編集</a>";
                                 echo "<a href=\"#\" onclick=\"confirmDelete({$review['id']})\" class=\"btn-delete\">削除</a>";

@@ -22,7 +22,7 @@
 ## ファイル構成
 
 ```
-kadai08_db2/
+kadai09_auth/
 ├── index.php                    # メインページ（レビュー一覧・検索）
 ├── post_review.php             # レビュー投稿ページ
 ├── view_reviews_table.php      # データ一覧ページ
@@ -67,14 +67,14 @@ kadai08_db2/
 
 3. **アクセス確認**
    ```
-   http://localhost/gs_kadai/kadai08_db2/index.php
+   http://localhost/gs_kadai/kadai09_auth/index.php
    ```
 
 ### 本番環境（さくらサーバー）
 
 1. **ファイルアップロード**
    - GitHubからプロジェクトをダウンロード
-   - FTPで `/home/ドメイン名/www/kadai08_db2/` にアップロード
+   - FTPで `/home/ドメイン名/www/kadai09_auth/` にアップロード
 
 2. **環境設定ファイル作成**
    ```bash
@@ -88,7 +88,7 @@ kadai08_db2/
 
 4. **アクセス確認**
    ```
-   https://your-domain.sakura.ne.jp/kadai08_db2/index.php
+   https://your-domain.sakura.ne.jp/kadai09_auth/index.php
    ```
 
 ## 📋 phpMyAdminでのテーブル作成・データ投入手順
